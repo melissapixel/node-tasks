@@ -19,6 +19,34 @@ const server = http.createServer((req, res) => {
     res.end('<h1>About</h1>');
   }
 
+  else if (req.method === 'POST' && req.url === '/data') {
+    let body = '';
+    
+    // Защита от переполнения
+    req.on('data', chunk => {
+      if (body.length > 1e6) { // Ограничение 1MB
+        res.statusCode = 413;
+        res.end('Request Entity Too Large');
+        return;
+      }
+      body += chunk.toString();
+    });
+
+    req.on('end', () => {
+      try {
+        const data = JSON.parse(body);
+        console.log('Получено:', data);
+        
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ status: 'ok', received: data }));
+      } catch (err) {
+        res.statusCode = 400;
+        res.end('Invalid JSON');
+      }
+    });
+  }
+
   // (404)
   else {
     res.statusCode = 404;
