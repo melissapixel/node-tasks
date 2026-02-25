@@ -9,13 +9,13 @@ const server = http.createServer((req, res) => {
   
   if (req.url === '/') {
     res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.end('<h1>Main</h1>');
   }
 
   else if (req.url === '/about') {
     res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.end('<h1>About</h1>');
   }
 
@@ -38,7 +38,7 @@ const server = http.createServer((req, res) => {
         console.log('Получено:', data);
         
         res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
         res.end(JSON.stringify({ status: 'ok', received: data }));
       } catch (err) {
         res.statusCode = 400;
@@ -50,7 +50,7 @@ const server = http.createServer((req, res) => {
   // (404)
   else {
     res.statusCode = 404;
-    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     res.end('Page 404');
   }
   
