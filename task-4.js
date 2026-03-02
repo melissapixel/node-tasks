@@ -22,6 +22,10 @@ const server = http.createServer((req, res) => {
         filePath = './public/style.css';
         contentType = 'text/css';
 
+    } else if (url === '/img') {
+        filePath = './public/anime-eyes-illustration.jpg';
+        contentType = 'image/jpeg'; // ВАЖНО: тип для JPG
+    
     } else if (url !== '/') {
         // Если адрес не главный и не about и не contact - ставим 404
         res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
